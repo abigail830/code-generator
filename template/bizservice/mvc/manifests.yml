@@ -1,0 +1,14 @@
+layer:
+  - controller
+  - service
+  - repository
+file-template-list:
+  - folder: /controller
+    templates:
+      - controller.java.mv
+  - folder: /service
+    templates:
+      - service.java.mv
+  - folder: /repository
+    templates:
+      - repository.java.mv

@@ -1,0 +1,7 @@
+file-template-list:
+- folder: /
+  templates:
+  - name: build.gradle.vm
+    type: buildTool
+  - name: settings.gradle.vm
+    type: buildTool

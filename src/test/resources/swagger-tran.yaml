@@ -1,0 +1,107 @@
+swagger: '2.0'
+info:
+  description: 交易服务
+  version: 1.0.0
+  title: 交易服务
+host: cmb.swagger.io
+tags:
+  - name: 交易
+    description: 交易服务
+  - name: 交易
+    description: 交易服务相关API
+schemes:
+  - http
+paths:
+
+  /payments-transaction/:
+    post:
+      tags:
+        - 交易
+      summary: 支付交易
+      description: ''
+      operationId: "pay"
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 支付交易
+          required: true
+          schema:
+            $ref: '#/definitions/PaymentRequet'
+      responses:
+        '200':
+          description: 支付成功
+          schema:
+            $ref: '#/definitions/PaymentResult'
+  
+definitions:
+  PaymentResult:
+    type: object
+    properties:
+      tradeSeqNo:
+        type: string
+        description: 流水号
+      errorCode:
+        type: string
+        description: 返回码
+      errorMsg:
+        type: string
+        description: 返回信息
+      payTime:
+        type: string
+        description: 支付时间
+  PaymentRequet:
+    type: object
+    properties:
+      channel:
+        type: string
+        description: 渠道
+      orderId:
+        type: string
+        description: 订单号
+      orderTime:
+        type: string
+        description: 订单日期
+      tradeMoney:
+        type: string
+        description: 交易总金额
+        example: 10000                
+      cardNo:
+        type: string
+        description: 卡号
+      validDate:
+        type: string
+        description: 有效期YYMM                
+      integralSum:
+        type: string
+        description: 积分数量
+        example: 10000
+      integralAmount:
+        type: string
+        description: 积分抵扣金额
+        example: 1000
+      couponsNo:
+        type: string
+        description: 优惠券编号
+        example: 1000001  
+      couponsAmount:
+        type: string
+        description: 优惠券抵扣金额
+        example: 1000                
+      senderTime:
+        type: string
+        description: 支付发起时间
+      tradeCode:
+        type: string
+        description: 交易码
+      terminalNo:
+        type: string
+        description: 终端号
+      remark:
+        type: string
+        description: 订单备注  

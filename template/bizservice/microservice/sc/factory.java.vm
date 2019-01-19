@@ -1,0 +1,21 @@
+package com.$group.replace("-", "").${name.replace("-", "")}.application;
+
+import package com.$group.replace("-", "").${name.replace("-", "")}.domain.Demo;
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+
+
+@Component
+public class DemoFactory {
+
+    protected static final ModelMapper mapper = new ModelMapper();
+
+    public Demo create(Long id,String name) {
+        return Demo.builder()
+                .id(id)
+                .name(name)
+                .build();
+    }
+}

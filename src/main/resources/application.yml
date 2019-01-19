@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+git:
+  url: "https://gitee.com/api/v5/user/repos"
+  accessToken: "ab5a58d6e0b4048ae798b61908c53997"
+  username: "leHuer"
+  password: "abc123"
+
+jenkins:
+  baseUrl: "http://10.0.1.21:8088"
+  auth: "admin:abcd1234"
+
+file:
+  server:
+    url: 'http://10.0.1.254:8099/appendix/download'

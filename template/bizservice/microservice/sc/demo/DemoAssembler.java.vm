@@ -1,0 +1,52 @@
+package com.${group.replace("-", "")}.${name.replace("-", "")}.resources.assembler;
+
+import com.${group.replace("-", "")}.${name.replace("-", "")}.domain.Demo;
+import com.${group.replace("-", "")}.${name.replace("-", "")}.resources.dto.DemoCreationRequest;
+import com.${group.replace("-", "")}.${name.replace("-", "")}.resources.dto.DemoResponse;
+import com.${group.replace("-", "")}.${name.replace("-", "")}.application.DemoFactory;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+
+@Component
+public class DemoAssembler {
+
+
+    protected static final ModelMapper mapper = new ModelMapper();
+
+    @Autowired
+    private DemoFactory demoFactory;
+
+    public Demo toDomainObject(DemoCreationRequest creationRequest) {
+        return demoFactory.create(creationRequest.getName());
+    }
+
+    public DemoCreationRequest toDto(Demo demo) {
+        return mapper.map(demo, DemoCreationRequest.class);
+    }
+
+    public DemoResponse toDemoResponse(Demo demo) {
+        if (demo != null) {
+            return mapper.map(demo, DemoResponse.class);
+        } else {
+            return null;
+        }
+
+    }
+
+    public List<DemoResponse> toDemoResponseList(List<Demo> demos) {
+
+        if (!CollectionUtils.isEmpty(demos)) {
+            return demos.stream()
+                    .map(c -> mapper.map(c, DemoResponse.class))
+                    .collect(Collectors.toList());
+        } else {
+            return null;
+        }
+    }
+}

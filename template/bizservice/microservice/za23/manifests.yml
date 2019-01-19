@@ -1,0 +1,25 @@
+file-template-list:
+  - folder: /
+    templates:
+      - name: demo/Application.java.vm
+        type: demo
+  - folder: /resources
+    templates:
+      - name: demo/application.properties.vm
+        type: demo
+      - name: demo/bootstrap.properties.vm
+        type: demo
+  - folder: /api
+    templates:
+      - name: demo/HelloworldApi.java.vm
+        type: demo
+      - name: demo/HelloworldApiController.java.vm
+        type: demo
+  - folder: /config
+    templates:
+      - name: demo/HomeController.java.vm
+        type: demo
+      - name: demo/SwaggerDocumentationConfig.java.vm
+        type: demo
+
+

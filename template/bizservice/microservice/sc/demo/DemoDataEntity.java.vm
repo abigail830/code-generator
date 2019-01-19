@@ -1,0 +1,22 @@
+
+package com.${group.replace("-", "")}.${name.replace("-", "")}.infrastructure.repositories.dataentity;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+
+
+@Getter
+@Setter
+@Entity
+@Table(name = "demo")
+public class DemoDataEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String name;
+}
+

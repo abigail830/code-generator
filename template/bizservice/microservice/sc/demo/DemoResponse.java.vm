@@ -1,0 +1,18 @@
+package com.${group.replace("-", "")}.${name.replace("-", "")}.resources.dto;
+
+import lombok.*;
+
+
+@AllArgsConstructor
+@EqualsAndHashCode
+@NoArgsConstructor
+@Builder
+@Getter
+@Setter
+public class DemoResponse {
+
+    private Long id;
+
+    private String name;
+
+}

@@ -1,0 +1,37 @@
+package com.group.name.resources;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.util.MultiValueMap;
+import io.swagger.annotations.ApiOperation;
+import com.group.name.resources.dto.*;
+
+@RestController
+public class StoreController {
+
+    @GetMapping("/store/inventory")
+    @ApiOperation("Returns pet inventories by status")
+    public ResponseEntity getInventory() {
+            return null;
+    }
+
+    @PostMapping("/store/order")
+    @ApiOperation("Place an order for a pet")
+    public ResponseEntity placeOrder(@RequestBody OrderDto body) {
+            return null;
+    }
+
+    @GetMapping("/store/order/{orderId}")
+    @ApiOperation("Find purchase order by ID")
+    public ResponseEntity getOrderById(@PathVariable Integer orderId) {
+            return null;
+    }
+
+    @DeleteMapping("/store/order/{orderId}")
+    @ApiOperation("Delete purchase order by ID")
+    public ResponseEntity deleteOrder(@PathVariable Integer orderId) {
+            return null;
+    }
+
+
+}

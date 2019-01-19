@@ -1,0 +1,17 @@
+file-template-list:
+- folder: /
+  templates:
+  - name: mvnw
+    path: /template/maven
+    type: copy
+  - name: mvnw.cmd
+    path: /template/maven
+    type: copy
+- folder: /.mvn/wrapper/
+  templates:
+  - name: maven-wrapper.jar
+    path: /template/maven
+    type: copy
+  - name: maven-wrapper.properties
+    path: /template/maven
+    type: copy

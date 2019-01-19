@@ -1,0 +1,29 @@
+group 'group'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'net.ltgt.apt'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly('org.projectlombok:lombok:1.18.4')
+    apt('org.projectlombok:lombok:1.18.4')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('io.springfox:springfox-swagger2:2.9.2')
+    compile('io.springfox:springfox-swagger-ui:2.9.2')
+    compile('org.springframework.boot:spring-boot-starter')
+    compile('com.google.guava:guava:20.0')
+    testCompile('junit:junit:4.12')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+}
+
+dependencyManagement{
+    imports {
+        mavenBom 'org.springframework.boot:spring-boot-starter:2.1.1.RELEASE'
+    }
+}

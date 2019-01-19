@@ -1,0 +1,73 @@
+group 'com.${group}'
+version '1.0-SNAPSHOT'
+
+
+buildscript {
+    ext {
+        springBootVersion = '${bootVersion}'
+#if($buildPropertiesGradle)
+    #foreach($property in $buildPropertiesGradle.entrySet())
+        $property.key = '$property.value'
+    #end
+#end
+    }
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        maven {
+            url "https://99.12.154.123/artifactory/libs-release/"
+        }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "net.ltgt.gradle:gradle-apt-plugin:0.10"
+    }
+}
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'java'
+apply plugin: 'net.ltgt.apt'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+#if($dependencies && !$dependencies.isEmpty())
+dependencies {
+    compileOnly('org.projectlombok:lombok:1.18.4')
+    apt('org.projectlombok:lombok:1.18.4')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('io.springfox:springfox-swagger2:2.9.2')
+    compile('io.springfox:springfox-swagger-ui:2.9.2')
+    compile('org.modelmapper:modelmapper:1.1.1')
+    runtimeOnly('com.h2database:h2')
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation('org.flywaydb:flyway-core')
+    #foreach($dependency in $dependencies)
+        #if($dependency.diy)
+    $dependency.diy
+    #else
+    ${dependency.option}('$dependency.group:$dependency.name#if($dependency.version):$dependency.version#end#if($dependency.type)@$dependency.type#end')
+    #end
+#end
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+}
+#end
+
+#if($dependencyManagements && !$dependencyManagements.isEmpty())
+dependencyManagement{
+    imports {
+        #foreach($dependencyManagement in $dependencyManagements)
+            #if($dependency.diy)
+                $dependency.diy
+            #else
+        mavenBom '$dependencyManagement.group:$dependencyManagement.name:$dependencyManagement.version'
+            #end
+        #end
+    }
+}
+#end

@@ -1,0 +1,29 @@
+pipeline {
+    agent{
+        label "master"
+    }
+    triggers {
+        pollSCM('* * * * *')
+    }
+    stages {
+        stage('Preparation') {
+            steps {
+                checkout(['$class': 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: "https://gitee.com/leHuer/test.git"]]])
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'chmod +x gradlew'
+                sh './gradlew clean build'
+            }
+        }
+        stage('start') {
+            steps {
+                sh """#!/bin/bash
+                    ps aux | grep '/docker-java-home/bin/java' | awk '{print $2}'|xargs kill -9
+                    SERVER_PORT=9090 ./gradlew bootRun &
+                """
+            }
+        }
+    }
+}

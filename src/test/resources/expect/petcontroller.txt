@@ -1,0 +1,31 @@
+package com.group.name.resources;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.util.MultiValueMap;
+import io.swagger.annotations.ApiOperation;
+import com.group.name.resources.dto.*;
+
+@RestController
+public class PetController {
+
+    @PutMapping(\"/pet\")
+    @ApiOperation(\"Update an existing pet\")
+    public ResponseEntity updatePet(@RequestBody PetDto body) {
+            return null;
+    }
+
+    @PostMapping(\"/pet\")
+    @ApiOperation(\"Add a new pet to the store\")
+    public ResponseEntity addPet(@RequestBody PetDto body) {
+            return null;
+    }
+
+    @GetMapping(\"/pet/findByStatus\")
+    @ApiOperation(\"Finds Pets by status\")
+    public ResponseEntity findPetsByStatus(@RequestParam(required = true) java.util.List<String> status) {
+            return null;
+    }
+
+
+}

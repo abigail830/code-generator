@@ -1,0 +1,24 @@
+package com.group.name.resources.dto;
+
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Setter
+public class PetDto {
+
+    private Long id;
+    private CategoryDto category;
+    private String name;
+    private java.util.List<String> photoUrls;
+    private java.util.List<TagDto> tags;
+    private String status;
+
+}

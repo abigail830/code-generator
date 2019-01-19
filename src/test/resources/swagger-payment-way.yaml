@@ -1,0 +1,168 @@
+swagger: '2.0'
+info:
+  description: 支付方式服务
+  version: 1.0.0
+  title: 支付方式服务
+host: petstore.swagger.io
+tags:
+  - name: 支付方式
+    description: 支付方式服务
+  - name: 支付
+    description: 支付方式服务相关API
+schemes:
+  - http
+paths:
+
+  /credit-cards/payment:
+    post:
+      tags:
+        - 支付方式
+      summary: 信用卡支付
+      description: ''
+      operationId: "payByCreditCard"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 信用卡支付
+          required: true
+          schema:
+            $ref: "#/definitions/CreditCardPayment"
+      responses:
+        '200':
+          description: 信用卡支付成功
+          schema:
+            $ref: "#/definitions/PaymentResult"
+
+  /integral/payment:
+    post:
+      tags:
+        - 支付方式
+      summary: 积分支付
+      description: ''
+      operationId: "payByIntegral"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 积分支付
+          required: true
+          schema:
+            $ref: "#/definitions/IntegralPayment"
+      responses:
+        '200':
+          description: 积分支付成功
+          schema:
+            $ref: "#/definitions/PaymentResult"
+                
+  /coupons/payment:
+    post:
+      tags:
+        - 支付方式
+      summary: 优惠券支付(待补)
+      description: ''
+      operationId: "payByCoupons"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 优惠券支付
+          required: true
+          schema:
+            $ref: '#/definitions/CouponsPayment'
+            
+      responses:
+        '200':
+          description: 优惠券支付成功
+          schema:
+            $ref: "#/definitions/PaymentResult"
+definitions:
+  CreditCardPayment:
+    type: 'object'
+    properties:
+      transcationNo: 
+        type: string
+        description: '交易单号'   
+      cardNo: 
+        type: string
+        description: '卡号'
+      validDate:
+        type: string
+        description: '有效期YYMM'
+      amount:
+        type: string
+        description: '交易金额'
+      senderTime:
+        type: string
+        description: '支付发起时间'
+      remark:
+        type: string
+        description: '交易备注'
+  IntegralPayment:
+    type: 'object'
+    properties:
+      transcationNo: 
+        type: string
+        description: '交易单号'
+      integralNum:
+        type: string
+        description: '积分数'
+        example: 7000
+      amount:
+        type: string
+        description: '积分抵扣金额'
+      senderTime:
+        type: string
+        description: '支付发起时间'
+      tradeCode:
+        type: string
+        description: '交易码'
+      remark:
+        type: string
+        description: '备注'
+  CouponsPayment:
+    type: 'object'
+    properties:
+      transcationNo: 
+        type: string
+        description: '交易单号'
+      couponsNo:
+        type: string
+        description: '优惠券编号'
+      amount:
+        type: string
+        description: '抵扣金额'
+      senderTime:
+        type: string
+        description: '支付发起时间'
+      tradeCode:
+        type: string
+        description: '交易码'
+      remark:
+        type: string
+        description: '备注'
+                
+  PaymentResult:
+    type: object
+    properties:
+      tradeSeqNo: 
+        type: string
+        description: '流水号'
+      errorCode: 
+        type: string
+        description: '返回码'
+      errorMsg: 
+        type: string
+        description: '返回信息'
+      payTime: 
+        type: string
+        description: '支付时间'

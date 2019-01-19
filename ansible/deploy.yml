@@ -1,0 +1,16 @@
+---
+- hosts: aws
+  remote_user: ubuntu
+  tasks:
+    - name: pull image
+      command: docker pull "{{image}}:{{tag}}"
+      become: true
+    - name: stop old container
+      command: docker stop "code-generator"
+      become: true
+    - name: remove old container
+      command: docker rm "code-generator"
+      become: true
+    - name: start new service container
+      command: docker run -d -p "8091:8080" --name "code-generator" {{image}}:{{tag}}
+      become: true

@@ -1,0 +1,7 @@
+
+#使用config server服务需要的配置（TODO:修改为你的config server配置，如不使用，可去掉配置）
+#spring.cloud.config.uri=http://localhost:8888
+#默认default
+#spring.cloud.config.profile=dev
+#默认master
+#spring.cloud.config.label=master

@@ -46,7 +46,7 @@ public class MavenBuildCommonProcessorTest {
 
     @Test
     public void testConvertMavenProjectFromTemplate() {
-        String projectName = "testConvertMavenProjectFromTemplate";
+        String projectName = "./MavenBuildCommonProcessorTest_testConvertMavenProjectFromTemplate";
         when(project.getName()).thenReturn(projectName);
         when(project.getBuildTool()).thenReturn(Constant.TYPE_MAVEN);
 
@@ -58,7 +58,7 @@ public class MavenBuildCommonProcessorTest {
 
     @Test
     public void testProcessGradleProjectGenerateNth() {
-        String projectName = "testProcessGradleProjectGenerateNth";
+        String projectName = "./MavenBuildCommonProcessorTest_testProcessGradleProjectGenerateNth";
         when(project.getName()).thenReturn(projectName);
         when(project.getBuildTool()).thenReturn(Constant.TYPE_GRADLE);
 
@@ -69,7 +69,7 @@ public class MavenBuildCommonProcessorTest {
 
     @Test
     public void testProcessMavenProjectSuccess() {
-        String projectName = "testProcessMavenProjectSuccess";
+        String projectName = "./MavenBuildCommonProcessorTest_testProcessMavenProjectSuccess";
         when(project.getName()).thenReturn(projectName);
         when(project.getBuildTool()).thenReturn(Constant.TYPE_MAVEN);
 

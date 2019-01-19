@@ -1,15 +1,23 @@
 package com.cmb.application;
 
+import com.cmb.domain.engine.Dependency;
+import com.cmb.domain.engine.DependencyManagement;
+import com.cmb.domain.engine.JenkinsConfig;
 import com.cmb.domain.engine.Project;
 import com.cmb.domain.processor.GradleBuildCommonProcessor;
 import com.cmb.domain.processor.MavenBuildCommonProcessor;
+import com.cmb.domain.processor.SourceProcessor;
+import com.cmb.domain.templateengine.VelocityTemplateEngine;
 import com.cmb.domain.utls.Constant;
 import com.cmb.domain.utls.FileUtils;
+import org.apache.velocity.app.VelocityEngine;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.HashMap;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -20,18 +28,44 @@ public class GeneratorServiceTest {
     Project project;
     GeneratorService generatorService;
 
+    VelocityTemplateEngine velocityTemplateEngine;
+
+
     @Before
     public void setUp() throws Exception {
         project = mock(Project.class);
         generatorService = new GeneratorService();
         generatorService.mavenBuildCommonProcessor = new MavenBuildCommonProcessor();
         generatorService.gradleBuildCommonProcessor = new GradleBuildCommonProcessor();
+
+        SourceProcessor sourceProcessor = new SourceProcessor();
+        VelocityEngine velocityEngine = new VelocityEngine();
+        velocityTemplateEngine = new VelocityTemplateEngine(velocityEngine);
+        sourceProcessor.templateEngine = velocityTemplateEngine;
+        generatorService.sourceProcessor = sourceProcessor;
+
+        project = mock(Project.class);
+        when(project.getBuildTool()).thenReturn(Constant.TYPE_MAVEN);
+        when(project.getGroup()).thenReturn("group");
+        when(project.getDecription()).thenReturn("description");
+        when(project.getServiceType()).thenReturn("testservice");
+        when(project.getLayerPattern()).thenReturn("testlayer");
+        when(project.getFramework()).thenReturn("testFramework");
+        when(project.getBootVersion()).thenReturn("bootVersion");
+        when(project.getServiceId()).thenReturn("serviceID");
+        when(project.getProductId()).thenReturn("productID");
+        when(project.getBuildPropertiesGradle()).thenReturn(new HashMap<>());
+        when(project.getBuildPropertiesMaven()).thenReturn(new HashMap<>());
+        when(project.getMavenParent()).thenReturn(Dependency.builder().build());
+        when(project.getJenkinsConfig()).thenReturn(JenkinsConfig.builder().build());
+        when(project.getDependencies()).thenReturn(Arrays.asList(Dependency.builder().build()));
+        when(project.getDependencyManagements()).thenReturn(Arrays.asList(DependencyManagement.builder().build()));
     }
 
 
     @Test
     public void testGenerateBuildCommonForMavenProject() {
-        String projectName = "./GeneratorServiceTest_testGenerateBuildCommonForMavenProject";
+        String projectName = "./GeneratorServiceTest_maven";
         when(project.getName()).thenReturn(projectName);
         when(project.getBuildTool()).thenReturn(Constant.TYPE_MAVEN);
 
@@ -57,7 +91,7 @@ public class GeneratorServiceTest {
 
     @Test
     public void testGenerateBuildCommonForGradleProject() {
-        String projectName = "./GeneratorServiceTest_testGenerateBuildCommonForGradleProject";
+        String projectName = "./GeneratorServiceTest_gradle";
         when(project.getName()).thenReturn(projectName);
         when(project.getBuildTool()).thenReturn(Constant.TYPE_GRADLE);
 

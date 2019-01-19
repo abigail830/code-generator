@@ -1,95 +1,63 @@
 package com.cmb.domain.processor;
 
-import com.cmb.domain.engine.ProjectFile;
+import com.cmb.domain.engine.Project;
+import com.cmb.domain.templateengine.VelocityTemplateEngine;
+import com.cmb.domain.utls.Constant;
+import org.apache.velocity.app.VelocityEngine;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 
-import static com.cmb.domain.utls.Constant.*;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class GenericProcessorTest {
 
     GenericProcessor genericProcessor;
 
+    VelocityTemplateEngine velocityTemplateEngine;
+    VelocityEngine velocityEngine = new VelocityEngine();
+
     @Before
     public void setUp() throws Exception {
         genericProcessor = new GenericProcessor();
+        genericProcessor.templateEngine = new VelocityTemplateEngine(velocityEngine);
     }
 
-    @Test
-    public void testGenerateGradleCommonByCopyFolder() {
-        String target = "./testGenerateGradleCommonByCopyFolder";
-        Path source = Paths.get(TEMPLATE_BASE_FOLDER, TYPE_BUILD_COMMON, TYPE_GRADLE);
-
-        ProjectFile projectFile = ProjectFile.builder()
-                .sourcePath(source.toString())
-                .targetPath(target)
-                .build();
-        genericProcessor.generate(Arrays.asList(projectFile));
-
-        File folder = new File(target);
-        assertTrue(folder.exists());
-        assertTrue(folder.isDirectory());
-        assertThat(folder.listFiles().length, is(3));
-
-        File gradlew_bat = Paths.get(target, "gradlew.bat").toFile();
-        assertTrue(gradlew_bat.exists());
-        assertTrue(gradlew_bat.isFile());
-
-        File gradlew = Paths.get(target, "gradlew").toFile();
-        assertTrue(gradlew.exists());
-        assertTrue(gradlew.isFile());
-
-        File wrapper_jar = Paths.get(target, "gradle", "wrapper", "gradle-wrapper.jar").toFile();
-        assertTrue(wrapper_jar.exists());
-        assertTrue(wrapper_jar.isFile());
-
-        File wrapper_properties = Paths.get(target, "gradle", "wrapper", "gradle-wrapper.properties").toFile();
-        assertTrue(wrapper_properties.exists());
-        assertTrue(wrapper_properties.isFile());
-
-        FileUtils.delete(target);
-    }
 
     @Test
-    public void testGenerateMavenCommonByCopyFolder() {
-        String target = "./testGenerateMavenCommonByCopyFolder";
-        Path source = Paths.get(TEMPLATE_BASE_FOLDER, TYPE_BUILD_COMMON, TYPE_MAVEN);
+    public void testGenerateTargetPath() {
 
-        ProjectFile projectFile = ProjectFile.builder()
-                .sourcePath(source.toString())
-                .targetPath(target)
-                .build();
-        genericProcessor.generate(Arrays.asList(projectFile));
+        String projectName = "projectName";
 
-        File folder = new File(target);
-        assertTrue(folder.exists());
-        assertTrue(folder.isDirectory());
-        assertThat(folder.listFiles().length, is(3));
+        Project project = mock(Project.class);
+        when(project.getBuildTool()).thenReturn(Constant.TYPE_MAVEN);
+        when(project.getGroup()).thenReturn("group");
+        when(project.getDecription()).thenReturn("description");
+        when(project.getServiceType()).thenReturn("testservice");
+        when(project.getLayerPattern()).thenReturn("testlayer");
+        when(project.getFramework()).thenReturn("testFramework");
+        when(project.getName()).thenReturn(projectName);
 
-        File mvnw_cmd = Paths.get(target, "mvnw.cmd").toFile();
-        assertTrue(mvnw_cmd.exists());
-        assertTrue(mvnw_cmd.isFile());
 
-        File mvnw = Paths.get(target, "mvnw").toFile();
-        assertTrue(mvnw.exists());
-        assertTrue(mvnw.isFile());
+        Path basePath = Paths.get(Constant.TEMPLATE_BASE_FOLDER, project.getServiceType(),
+                project.getLayerPattern(), project.getFramework(), Constant.TYPE_SOURCE);
 
-        File maven_wrapper_jar = Paths.get(target, ".mvn", "wrapper", "maven-wrapper.jar").toFile();
-        assertTrue(maven_wrapper_jar.exists());
-        assertTrue(maven_wrapper_jar.isFile());
+        Path filePath = Paths.get(basePath.toString(),
+                "src", "main", "java", "com", Constant.DEFAULT_GROUP, Constant.DEFAULT_NAME, "api");
 
-        File maven_wrapper_properties = Paths.get(target, ".mvn", "wrapper", "maven-wrapper.properties").toFile();
-        assertTrue(maven_wrapper_properties.exists());
-        assertTrue(maven_wrapper_properties.isFile());
+        String finalPath = genericProcessor.generateTargetPath(basePath.toString(), filePath.toString(), project);
 
-        FileUtils.delete(target);
+        assertTrue(finalPath.contains("group"));
+        assertFalse(finalPath.contains(Constant.DEFAULT_GROUP));
+
+        assertTrue(finalPath.contains(projectName));
+        assertFalse(finalPath.contains(Constant.DEFAULT_NAME));
+
+        assertEquals("projectName/src/main/java/com/group/projectName/api", finalPath);
+
     }
 }

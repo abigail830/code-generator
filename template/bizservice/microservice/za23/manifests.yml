@@ -17,7 +17,7 @@ file-template-list:
         type: demo
   - folder: /config
     templates:
-      - name: demo/HomeController.java.vm
+    - name: demo/HomeController.java
         type: demo
       - name: demo/SwaggerDocumentationConfig.java.vm
         type: demo

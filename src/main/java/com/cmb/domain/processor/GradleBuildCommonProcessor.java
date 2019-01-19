@@ -3,8 +3,6 @@ package com.cmb.domain.processor;
 import com.cmb.domain.engine.Project;
 import com.cmb.domain.engine.ProjectFile;
 import com.cmb.domain.utls.Constant;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.nio.file.Paths;
@@ -13,8 +11,6 @@ import java.util.List;
 
 @Component
 public class GradleBuildCommonProcessor extends GenericProcessor {
-
-    private static Logger logger = LoggerFactory.getLogger(GradleBuildCommonProcessor.class);
 
 
     @Override
@@ -31,12 +27,19 @@ public class GradleBuildCommonProcessor extends GenericProcessor {
         String source = Paths.get(
                 Constant.TEMPLATE_BASE_FOLDER, Constant.TYPE_BUILD_COMMON, Constant.TYPE_GRADLE).toString();
 
+        String upddateProjectName = project.getName().replaceAll("-", "");
+
         ProjectFile projectFile = ProjectFile.builder()
                 .sourcePath(source)
-                .targetPath(project.getName())
+                .targetPath(upddateProjectName)
                 .build();
 
         return Arrays.asList(projectFile);
+    }
+
+    @Override
+    protected void generate(List<ProjectFile> projectFiles) {
+        generateByCopy(projectFiles);
     }
 
 }

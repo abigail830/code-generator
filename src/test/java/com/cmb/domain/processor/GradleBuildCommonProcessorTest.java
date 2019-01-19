@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
@@ -76,6 +77,24 @@ public class GradleBuildCommonProcessorTest {
         gradleBuildCommonProcessor.process(project);
         File targetFile = new File(projectName);
         assertTrue(targetFile.exists());
+        assertTrue(targetFile.isDirectory());
+        assertThat(targetFile.listFiles().length, is(3));
+
+        File gradlew_bat = Paths.get(projectName, "gradlew.bat").toFile();
+        assertTrue(gradlew_bat.exists());
+        assertTrue(gradlew_bat.isFile());
+
+        File gradlew = Paths.get(projectName, "gradlew").toFile();
+        assertTrue(gradlew.exists());
+        assertTrue(gradlew.isFile());
+
+        File wrapper_jar = Paths.get(projectName, "gradle", "wrapper", "gradle-wrapper.jar").toFile();
+        assertTrue(wrapper_jar.exists());
+        assertTrue(wrapper_jar.isFile());
+
+        File wrapper_properties = Paths.get(projectName, "gradle", "wrapper", "gradle-wrapper.properties").toFile();
+        assertTrue(wrapper_properties.exists());
+        assertTrue(wrapper_properties.isFile());
 
         FileUtils.delete(projectName);
     }

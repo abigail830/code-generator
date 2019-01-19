@@ -7,6 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @Setter
+@ToString
 public class ProjectFile {
 
     private String name;

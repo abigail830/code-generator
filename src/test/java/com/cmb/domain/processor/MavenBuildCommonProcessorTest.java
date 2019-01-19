@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
@@ -76,6 +77,24 @@ public class MavenBuildCommonProcessorTest {
         mavenBuildCommonProcessor.process(project);
         File targetFile = new File(projectName);
         assertTrue(targetFile.exists());
+        assertTrue(targetFile.isDirectory());
+        assertThat(targetFile.listFiles().length, is(3));
+
+        File mvnw_cmd = Paths.get(projectName, "mvnw.cmd").toFile();
+        assertTrue(mvnw_cmd.exists());
+        assertTrue(mvnw_cmd.isFile());
+
+        File mvnw = Paths.get(projectName, "mvnw").toFile();
+        assertTrue(mvnw.exists());
+        assertTrue(mvnw.isFile());
+
+        File maven_wrapper_jar = Paths.get(projectName, ".mvn", "wrapper", "maven-wrapper.jar").toFile();
+        assertTrue(maven_wrapper_jar.exists());
+        assertTrue(maven_wrapper_jar.isFile());
+
+        File maven_wrapper_properties = Paths.get(projectName, ".mvn", "wrapper", "maven-wrapper.properties").toFile();
+        assertTrue(maven_wrapper_properties.exists());
+        assertTrue(maven_wrapper_properties.isFile());
 
         FileUtils.delete(projectName);
     }

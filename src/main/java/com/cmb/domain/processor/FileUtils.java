@@ -1,7 +1,6 @@
 package com.cmb.domain.processor;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.*;
 import java.util.Comparator;
 
@@ -43,8 +42,10 @@ public class FileUtils {
 
     private static void ensureParentFolder(File file) {
         File parent = file.getParentFile();
-        if (parent != null && !parent.exists())
+        if (parent != null && !parent.exists()) {
             parent.mkdirs();
+        }
+
     }
 
     public static void delete(String filePath) {
@@ -53,6 +54,40 @@ public class FileUtils {
                     .peek(System.out::println).forEach(File::delete);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void writeFileOrFolder(String source, String dest, String content) {
+        File sourceFile = new File(source);
+        File targetFile = new File(dest);
+
+        if (sourceFile.isDirectory()) {
+            if (targetFile != null && !targetFile.exists()) {
+                targetFile.mkdirs();
+            }
+        } else {
+            ensureParentFolder(targetFile);
+            writeTo(dest, content);
+        }
+
+    }
+
+    public static void writeTo(String filePathName, String content) {
+        Writer writer = null;
+
+        try {
+            writer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(filePathName), "utf-8"));
+            writer.write(content);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+
+        } finally {
+            try {
+                writer.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 }

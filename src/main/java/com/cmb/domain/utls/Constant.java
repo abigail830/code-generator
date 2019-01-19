@@ -8,4 +8,7 @@ public class Constant {
     public static final String TYPE_BUILD_COMMON = "buildcommon";
 
     public static final String TEMPLATE_BASE_FOLDER = "./templatenew";
+
+    public static final String DEFAULT_GROUP = "defaultgroup";
+    public static final String DEFAULT_NAME = "defaultname";
 }

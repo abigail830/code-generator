@@ -36,10 +36,10 @@ public class FileUtils {
         return Files.isDirectory(Paths.get(path));
     }
 
-    public static void copyFile(String sourcePath, String newPath) {
+    public static void copyFile(String sourcePath, String targetPath) {
         File file = new File(sourcePath);
         if (file.isFile()) {
-            File newFile = new File(newPath);
+            File newFile = new File(targetPath);
             try (
                     FileInputStream in = new FileInputStream(file);
                     FileOutputStream out = new FileOutputStream(newFile);

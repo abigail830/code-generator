@@ -29,7 +29,7 @@ file-template-list:
         type: demo
   - folder: /
     templates:
-      - name: application.java.vm
+    - name: Application.java.vm
         type: application
   - folder: /infrastructure/gateways
     templates:

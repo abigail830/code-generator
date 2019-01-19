@@ -6,11 +6,11 @@
       command: docker pull "{{image}}:{{tag}}"
       become: true
     - name: stop old container
-      command: docker stop "code-generator"
+      command: docker stop "old-generator"
       become: true
     - name: remove old container
-      command: docker rm "code-generator"
+      command: docker rm "old-generator"
       become: true
     - name: start new service container
-      command: docker run -d -p "8091:8080" --name "code-generator" {{image}}:{{tag}}
+      command: docker run -d -p "8091:8080" --name "old-generator" {{image}}:{{tag}}
       become: true

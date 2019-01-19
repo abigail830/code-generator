@@ -6,10 +6,10 @@ system:
 
 ---
 project:
-  name: code-generation-contentgenerator
+  name: old-generation-contentgenerator
   architecture-pattern: microservice-layer
   project-type: app-microserivices
-  api-yaml: ./code-generation-contentgenerator-api.yaml
+  api-yaml: ./old-generation-contentgenerator-api.yaml
 
 ---
 project:

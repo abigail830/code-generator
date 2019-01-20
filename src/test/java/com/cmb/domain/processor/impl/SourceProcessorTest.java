@@ -1,9 +1,9 @@
 package com.cmb.domain.processor.impl;
 
 import com.cmb.domain.engine.*;
-import com.cmb.domain.processor.FileUtils;
 import com.cmb.domain.templateengine.VelocityTemplateEngine;
 import com.cmb.domain.utls.Constant;
+import com.cmb.domain.utls.FileUtils;
 import org.apache.velocity.app.VelocityEngine;
 import org.junit.Before;
 import org.junit.Test;

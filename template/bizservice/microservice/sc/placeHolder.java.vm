@@ -1,4 +1,0 @@
-package com.$group.replace("-", "").${name.replace("-", "")}.infrastructure.gateways;
-
-public class PlaceHolder {
-}

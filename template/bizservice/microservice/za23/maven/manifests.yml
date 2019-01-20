@@ -1,6 +1,0 @@
-file-template-list:
-- folder: /
-  templates:
-  - name: pom.xml.vm
-    type: buildTool
-

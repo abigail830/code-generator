@@ -1,4 +1,4 @@
-package com.cmb.domain.engine;
+package com.cmb.domain.processor;
 
 import lombok.*;
 
@@ -8,7 +8,7 @@ import lombok.*;
 @Builder
 @Setter
 @ToString
-public class ProjectFile {
+public class ProcessFile {
 
     private String name;
     private String targetPath;

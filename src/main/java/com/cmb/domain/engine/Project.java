@@ -27,8 +27,6 @@ public class Project {
     @Builder.Default
     private String javaVersion = "1.8";
 
-    private List<ProjectFile> projectFileList;
-
     private List<DependencyManagement> dependencyManagements;
 
     private List<Dependency> dependencies;

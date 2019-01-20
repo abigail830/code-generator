@@ -1,7 +1,7 @@
 package com.cmb.domain.processor.impl;
 
 import com.cmb.domain.engine.Project;
-import com.cmb.domain.engine.ProjectFile;
+import com.cmb.domain.processor.ProcessFile;
 import com.cmb.domain.utls.Constant;
 import com.cmb.domain.utls.FileUtils;
 import org.junit.Before;
@@ -51,7 +51,7 @@ public class MavenBuildCommonProcessorTest {
         when(project.getName()).thenReturn(projectName);
         when(project.getBuildTool()).thenReturn(Constant.TYPE_MAVEN);
 
-        List<ProjectFile> actual = mavenBuildCommonProcessor.convertFromTemplate(project);
+        List<ProcessFile> actual = mavenBuildCommonProcessor.convertFromTemplate(project);
 
         assertThat(actual.size(), is(1));
         assertTrue(actual.get(0).getName() == null);

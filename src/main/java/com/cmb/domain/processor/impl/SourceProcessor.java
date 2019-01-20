@@ -1,8 +1,8 @@
 package com.cmb.domain.processor.impl;
 
 import com.cmb.domain.engine.Project;
-import com.cmb.domain.engine.ProjectFile;
 import com.cmb.domain.processor.GenericProcessor;
+import com.cmb.domain.processor.ProcessFile;
 import com.cmb.domain.utls.Constant;
 import org.springframework.stereotype.Component;
 
@@ -14,19 +14,19 @@ import java.util.List;
 public class SourceProcessor extends GenericProcessor {
 
     @Override
-    protected List<ProjectFile> convertFromTemplate(Project project) {
+    protected List<ProcessFile> convertFromTemplate(Project project) {
 
         Path templatePath = Paths.get(Constant.TEMPLATE_BASE_FOLDER,
                 project.getServiceType(), project.getLayerPattern(), project.getFramework(), Constant.TYPE_SOURCE);
 
-        List<ProjectFile> projectFiles = convertWithTemplateParser(project, templatePath);
-        return projectFiles;
+        List<ProcessFile> processFiles = convertWithTemplateParser(project, templatePath);
+        return processFiles;
     }
 
 
     @Override
-    protected void generate(List<ProjectFile> projectFiles) {
-        generateByWriteProjectFileContent(projectFiles);
+    protected void generate(List<ProcessFile> processFiles) {
+        generateByWriteProjectFileContent(processFiles);
     }
 
 

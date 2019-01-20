@@ -1,8 +1,8 @@
 package com.cmb.domain.processor.impl;
 
 import com.cmb.domain.engine.Project;
-import com.cmb.domain.engine.ProjectFile;
 import com.cmb.domain.processor.GenericProcessor;
+import com.cmb.domain.processor.ProcessFile;
 import com.cmb.domain.utls.Constant;
 import org.springframework.stereotype.Component;
 
@@ -24,23 +24,23 @@ public class GradleBuildCommonProcessor extends GenericProcessor {
     }
 
     @Override
-    protected List<ProjectFile> convertFromTemplate(Project project) {
+    protected List<ProcessFile> convertFromTemplate(Project project) {
         String source = Paths.get(
                 Constant.TEMPLATE_BASE_FOLDER, Constant.TYPE_BUILD_COMMON, Constant.TYPE_GRADLE).toString();
 
         String upddateProjectName = project.getName().replaceAll("-", "");
 
-        ProjectFile projectFile = ProjectFile.builder()
+        ProcessFile processFile = ProcessFile.builder()
                 .sourcePath(source)
                 .targetPath(upddateProjectName)
                 .build();
 
-        return Arrays.asList(projectFile);
+        return Arrays.asList(processFile);
     }
 
     @Override
-    protected void generate(List<ProjectFile> projectFiles) {
-        generateByCopy(projectFiles);
+    protected void generate(List<ProcessFile> processFiles) {
+        generateByCopy(processFiles);
     }
 
 }

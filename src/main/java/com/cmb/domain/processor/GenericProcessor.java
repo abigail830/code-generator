@@ -1,7 +1,6 @@
 package com.cmb.domain.processor;
 
 import com.cmb.domain.engine.Project;
-import com.cmb.domain.engine.ProjectFile;
 import com.cmb.domain.templateengine.TemplateEngine;
 import com.cmb.domain.utls.Constant;
 import com.cmb.domain.utls.FileUtils;
@@ -28,12 +27,12 @@ public class GenericProcessor extends AbstractProcessor {
     public TemplateEngine templateEngine;
 
 
-    protected List<ProjectFile> convertWithTemplateParser(Project project, Path sourcePath) {
-        List<ProjectFile> projectFiles = new ArrayList<>();
+    protected List<ProcessFile> convertWithTemplateParser(Project project, Path sourcePath) {
+        List<ProcessFile> processFiles = new ArrayList<>();
         try {
-            projectFiles = Files.walk(sourcePath)
+            processFiles = Files.walk(sourcePath)
                     .filter(path -> Files.isRegularFile(path))
-                    .map(filePath -> ProjectFile.builder()
+                    .map(filePath -> ProcessFile.builder()
                             .name(filePath.getFileName().toString())
                             .content(templateEngine.generate(filePath.toString(), getParameters(project)))
                             .sourcePath(filePath.toString())
@@ -45,7 +44,7 @@ public class GenericProcessor extends AbstractProcessor {
             e.printStackTrace();
             logger.warn(e.getMessage());
         }
-        return projectFiles;
+        return processFiles;
     }
 
     protected String generateTargetPath(String basePath, String sourcePath, Project project) {
@@ -63,20 +62,20 @@ public class GenericProcessor extends AbstractProcessor {
 
     }
 
-    protected void generateByCopy(List<ProjectFile> projectFiles) {
-        projectFiles.stream().forEach(projectFile -> {
+    protected void generateByCopy(List<ProcessFile> processFiles) {
+        processFiles.stream().forEach(projectFile -> {
 
             try {
                 FileUtils.copyFileOrFolder(projectFile.getSourcePath(), projectFile.getTargetPath());
             } catch (IOException e) {
-                logger.warn("IOException happen when try to generate ProjectFile into Files.");
+                logger.warn("IOException happen when try to generate ProcessFile into Files.");
                 e.printStackTrace();
             }
         });
     }
 
-    protected void generateByWriteProjectFileContent(List<ProjectFile> projectFiles) {
-        projectFiles.stream().forEach(projectFile -> {
+    protected void generateByWriteProjectFileContent(List<ProcessFile> processFiles) {
+        processFiles.stream().forEach(projectFile -> {
 
             FileUtils.writeFileOrFolder(projectFile.getSourcePath(),
                     projectFile.getTargetPath(), projectFile.getContent());

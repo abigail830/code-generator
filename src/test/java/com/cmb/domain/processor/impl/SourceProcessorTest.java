@@ -1,6 +1,10 @@
 package com.cmb.domain.processor.impl;
 
-import com.cmb.domain.engine.*;
+import com.cmb.domain.engine.Dependency;
+import com.cmb.domain.engine.DependencyManagement;
+import com.cmb.domain.engine.JenkinsConfig;
+import com.cmb.domain.engine.Project;
+import com.cmb.domain.processor.ProcessFile;
 import com.cmb.domain.templateengine.VelocityTemplateEngine;
 import com.cmb.domain.utls.Constant;
 import com.cmb.domain.utls.FileUtils;
@@ -60,31 +64,31 @@ public class SourceProcessorTest {
         String projectName = "tonvertSourceFromTemplate";
         when(project.getName()).thenReturn(projectName);
 
-        List<ProjectFile> projectFiles = sourceProcessor.convertFromTemplate(project);
+        List<ProcessFile> processFiles = sourceProcessor.convertFromTemplate(project);
 
-        assertThat(projectFiles.size(), is(6));
+        assertThat(processFiles.size(), is(6));
 
         //assert Place_Holder
-        assertThat(projectFiles.stream()
+        assertThat(processFiles.stream()
                         .filter(projectFile -> projectFile.getName().equals("Place_Holder"))
                         .collect(Collectors.toList()).size(),
                 is(1));
 
         String expect = projectName +
                 "/src/main/java/com/group/" + projectName + "/api/dto/Place_Holder";
-        assertThat(projectFiles.stream()
+        assertThat(processFiles.stream()
                         .filter(projectFile -> projectFile.getTargetPath().equals(expect))
                         .collect(Collectors.toList()).size(),
                 is(1));
 
         //assert .gitignore
-        assertThat(projectFiles.stream()
+        assertThat(processFiles.stream()
                         .filter(projectFile -> projectFile.getName().equals(".gitignore"))
                         .collect(Collectors.toList()).size(),
                 is(1));
 
         String expect2 = projectName + "/.gitignore";
-        assertThat(projectFiles.stream()
+        assertThat(processFiles.stream()
                         .filter(projectFile -> projectFile.getTargetPath().equals(expect2))
                         .collect(Collectors.toList()).size(),
                 is(1));

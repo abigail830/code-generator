@@ -4,7 +4,7 @@ public final class FormatUtils {
 
     private static final String pattern = "-";
 
-    public static String formateClassName(String className) {
+    public static String formatClassName(String className) {
 
         if (className == null) {
             return null;
@@ -19,7 +19,7 @@ public final class FormatUtils {
         if (pos < className.length() - 1) {
             newClassName += className.substring(pos + 2);
         }
-        return formateClassName(newClassName);
+        return formatClassName(newClassName);
     }
 
 }

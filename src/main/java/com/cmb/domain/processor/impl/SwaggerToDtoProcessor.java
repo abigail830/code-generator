@@ -4,7 +4,8 @@ import com.cmb.domain.processor.ProcessFile;
 import com.cmb.domain.project.Project;
 import com.cmb.domain.utls.Constant;
 import com.cmb.domain.utls.FormatUtils;
-import com.cmb.domain.utls.TargetPathHelper;
+import com.cmb.domain.utls.SwaggerTargetPathHelper;
+import com.cmb.domain.utls.SwaggerUtil;
 import io.swagger.models.Model;
 import io.swagger.models.properties.Property;
 import org.springframework.stereotype.Component;
@@ -23,6 +24,7 @@ public class SwaggerToDtoProcessor extends SwaggerGenericProcessor {
             Constant.TYPE_SWAGGER, "dto.java.vm").toString();
 
 
+    @Override
     protected List<ProcessFile> convertFromTemplate(Project project) {
 
         List<ProcessFile> processFiles = new ArrayList<>();
@@ -30,12 +32,12 @@ public class SwaggerToDtoProcessor extends SwaggerGenericProcessor {
         project.getSwagger().getDefinitions().keySet().forEach(className -> {
 
             Model model = project.getSwagger().getDefinitions().get(className);
-            String clazzFullName = FormatUtils.formateClassName(className + SUFFIX);
+            String clazzFullName = FormatUtils.formatClassName(className + SUFFIX);
             Map<String, Object> parameters = getParameters(project, model, clazzFullName);
             String content = templateEngine.generate(SOURCE_PATH, parameters);
 
             String fileName = clazzFullName + FILE_SUFFIX;
-            String targetPath = Paths.get(TargetPathHelper.getTargetPath(SUFFIX, project), fileName).toString();
+            String targetPath = Paths.get(SwaggerTargetPathHelper.getTargetPath(SUFFIX, project), fileName).toString();
 
             processFiles.add(ProcessFile.builder().content(content)
                     .name(fileName)
@@ -61,7 +63,7 @@ public class SwaggerToDtoProcessor extends SwaggerGenericProcessor {
         Map<String, Object> values = new LinkedHashMap<>();
         Map<String, Property> properties = model.getProperties();
         for (Map.Entry<String, Property> entry : properties.entrySet()) {
-            values.put(entry.getKey(), getType(entry.getValue(), SUFFIX));
+            values.put(entry.getKey(), SwaggerUtil.getType(entry.getValue(), SUFFIX));
         }
         return values;
     }

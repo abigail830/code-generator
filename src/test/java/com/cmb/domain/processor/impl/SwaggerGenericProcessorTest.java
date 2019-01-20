@@ -10,9 +10,9 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class SwaggerApiProcessorTest {
+public class SwaggerGenericProcessorTest {
 
-    SwaggerApiProcessor swaggerApiProcessor;
+    SwaggerGenericProcessor swaggerGenericProcessor;
 
     Project project;
 
@@ -20,7 +20,7 @@ public class SwaggerApiProcessorTest {
 
     @Before
     public void setUp() throws Exception {
-        swaggerApiProcessor = new SwaggerApiProcessor();
+        swaggerGenericProcessor = new SwaggerGenericProcessor();
         project = mock(Project.class);
         swagger = mock(Swagger.class);
     }
@@ -28,12 +28,12 @@ public class SwaggerApiProcessorTest {
     @Test
     public void testIsValidToProceedWhenSwaggerNull() {
         when(project.getSwagger()).thenReturn(null);
-        assertFalse(swaggerApiProcessor.isValidToProceed(project));
+        assertFalse(swaggerGenericProcessor.isValidToProceed(project));
     }
 
     @Test
     public void testIsValidToProceedWhenSwaggerNotNull() {
         when(project.getSwagger()).thenReturn(swagger);
-        assertTrue(swaggerApiProcessor.isValidToProceed(project));
+        assertTrue(swaggerGenericProcessor.isValidToProceed(project));
     }
 }

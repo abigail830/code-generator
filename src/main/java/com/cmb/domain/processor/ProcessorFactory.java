@@ -22,6 +22,8 @@ public class ProcessorFactory implements InitializingBean {
     MavenConfigProcessor mavenConfigProcessor;
     @Autowired
     GradleConfigProcessor gradleConfigProcessor;
+    @Autowired
+    SwaggerToDtoProcessor swaggerToDtoProcessor;
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -30,7 +32,8 @@ public class ProcessorFactory implements InitializingBean {
                 mavenBuildCommonProcessor,
                 sourceProcessor,
                 mavenConfigProcessor,
-                gradleConfigProcessor);
+                gradleConfigProcessor,
+                swaggerToDtoProcessor);
     }
 
     public List<GenericProcessor> getProcessorList() {

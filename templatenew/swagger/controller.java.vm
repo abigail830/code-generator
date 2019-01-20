@@ -1,4 +1,4 @@
-package com.${group.replace("-","")}.${name.replace("-","")}.resources;
+package com.${group.replace("-","")}.${name.replace("-","")}.api;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

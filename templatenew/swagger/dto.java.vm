@@ -1,4 +1,4 @@
-package com.$group.replace("-", "").${name.replace("-", "")}.resources.dto;
+package com.$group.replace("-", "").${name.replace("-", "")}.api.dto;
 
 
 import lombok.AllArgsConstructor;

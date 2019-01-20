@@ -1,7 +1,8 @@
-package com.cmb.domain.processor;
+package com.cmb.domain.processor.impl;
 
 import com.cmb.domain.engine.Project;
 import com.cmb.domain.engine.ProjectFile;
+import com.cmb.domain.processor.GenericProcessor;
 import com.cmb.domain.utls.Constant;
 import org.springframework.stereotype.Component;
 

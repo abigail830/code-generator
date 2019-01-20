@@ -1,7 +1,5 @@
 package com.cmb;
 
-import com.cmb.domain.loader.ProjectTemplate;
-import com.cmb.domain.loader.YamlLoader;
 import com.cmb.domain.templateengine.TemplateEngine;
 import com.cmb.domain.templateengine.VelocityTemplateEngine;
 import org.apache.velocity.app.VelocityEngine;
@@ -55,10 +53,6 @@ public class Application {
         return new VelocityTemplateEngine(ve);
     }
 
-    @Bean
-    public YamlLoader<ProjectTemplate> getProjectTemplateYamlLoader() {
-        return new YamlLoader<>(ProjectTemplate.class);
-    }
 
     @Bean
     public ModelMapper getModelMapper() {

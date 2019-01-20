@@ -1,4 +1,4 @@
-package com.cmb.domain.processor;
+package com.cmb.domain.processor.impl;
 
 import com.cmb.domain.engine.Project;
 import com.cmb.domain.engine.ProjectFile;

@@ -1,5 +1,6 @@
 package com.cmb.domain.processor;
 
+import com.cmb.domain.processor.impl.*;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;

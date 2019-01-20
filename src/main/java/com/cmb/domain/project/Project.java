@@ -1,4 +1,4 @@
-package com.cmb.domain.engine;
+package com.cmb.domain.project;
 
 import io.swagger.models.Swagger;
 import lombok.*;
@@ -34,8 +34,6 @@ public class Project {
     private Map<String, String> buildPropertiesGradle;
 
     private Map<String, String> buildPropertiesMaven;
-
-    private JenkinsConfig jenkinsConfig;
 
     private Dependency mavenParent;
 

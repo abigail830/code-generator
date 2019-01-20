@@ -35,8 +35,8 @@ public class GeneratorController {
     public ResponseEntity<String> generate(@RequestBody @Validated ProjectDTO projectDTO) throws Exception {
         logger.info(objectMapper.writeValueAsString(projectDTO));
 
-        final String gradleFile = service.generate(projectAssembler.convertToDomainProject(projectDTO));
-        return new ResponseEntity<>(gradleFile, HttpStatus.OK);
+        final String generateResult = service.generate(projectAssembler.convertToDomainProject(projectDTO));
+        return new ResponseEntity<>(generateResult, HttpStatus.OK);
     }
 
 }

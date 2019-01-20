@@ -1,6 +1,6 @@
 package com.cmb.domain.processor;
 
-import com.cmb.domain.engine.Project;
+import com.cmb.domain.project.Project;
 import com.cmb.domain.templateengine.VelocityTemplateEngine;
 import com.cmb.domain.utls.Constant;
 import org.apache.velocity.app.VelocityEngine;

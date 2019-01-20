@@ -1,8 +1,7 @@
 package com.cmb.apis.dto;
 
-import com.cmb.domain.engine.Dependency;
-import com.cmb.domain.engine.DependencyManagement;
-import com.cmb.domain.engine.JenkinsConfig;
+import com.cmb.domain.project.Dependency;
+import com.cmb.domain.project.DependencyManagement;
 import io.swagger.annotations.ApiParam;
 import lombok.*;
 import org.springframework.validation.annotation.Validated;
@@ -55,8 +54,6 @@ public class ProjectDTO {
   @ApiParam(required = true, name = "bootVersion", value = "springBoot版本")
   @NotBlank(message = "springBoot版本不能为空")
   private String bootVersion;
-
-  private JenkinsConfig jenkinsConfig;
 
   private List<DependencyManagement> dependencyManagements;
 

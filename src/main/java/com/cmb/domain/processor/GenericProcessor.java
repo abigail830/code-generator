@@ -1,6 +1,6 @@
 package com.cmb.domain.processor;
 
-import com.cmb.domain.engine.Project;
+import com.cmb.domain.project.Project;
 import com.cmb.domain.templateengine.TemplateEngine;
 import com.cmb.domain.utls.Constant;
 import com.cmb.domain.utls.FileUtils;
@@ -92,7 +92,6 @@ public class GenericProcessor extends AbstractProcessor {
         paramaters.put("dependencyManagements", project.getDependencyManagements());
         paramaters.put("buildPropertiesGradle", project.getBuildPropertiesGradle());
         paramaters.put("buildPropertiesMaven", project.getBuildPropertiesMaven());
-        paramaters.put("jenkinsConfig", project.getJenkinsConfig());
         paramaters.put("mavenParent", project.getMavenParent());
         paramaters.put("bootVersion", project.getBootVersion());
         paramaters.put("productId", project.getProductId());

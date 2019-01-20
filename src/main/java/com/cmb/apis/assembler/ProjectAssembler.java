@@ -2,7 +2,7 @@ package com.cmb.apis.assembler;
 
 import com.cmb.apis.dto.ProjectDTO;
 import com.cmb.application.ProjectFactory;
-import com.cmb.domain.engine.Project;
+import com.cmb.domain.project.Project;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

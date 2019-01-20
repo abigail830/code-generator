@@ -3,10 +3,9 @@ package com.cmb.integration;
 
 import com.cmb.Application;
 import com.cmb.application.GeneratorService;
-import com.cmb.domain.engine.Dependency;
-import com.cmb.domain.engine.DependencyManagement;
-import com.cmb.domain.engine.JenkinsConfig;
-import com.cmb.domain.engine.Project;
+import com.cmb.domain.project.Dependency;
+import com.cmb.domain.project.DependencyManagement;
+import com.cmb.domain.project.Project;
 import com.cmb.domain.utls.Constant;
 import com.cmb.domain.utls.FileUtils;
 import org.junit.Before;
@@ -49,7 +48,6 @@ public class GeneratorServiceTest {
         when(project.getBuildPropertiesGradle()).thenReturn(new HashMap<>());
         when(project.getBuildPropertiesMaven()).thenReturn(new HashMap<>());
         when(project.getMavenParent()).thenReturn(Dependency.builder().build());
-        when(project.getJenkinsConfig()).thenReturn(JenkinsConfig.builder().build());
         when(project.getDependencies()).thenReturn(Arrays.asList(Dependency.builder().build()));
         when(project.getDependencyManagements()).thenReturn(Arrays.asList(DependencyManagement.builder().build()));
     }

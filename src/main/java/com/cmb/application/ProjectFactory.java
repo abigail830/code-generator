@@ -1,7 +1,7 @@
 package com.cmb.application;
 
-import com.cmb.domain.engine.Project;
-import com.cmb.domain.utls.SwaggerUtils;
+import com.cmb.domain.project.Project;
+import com.cmb.domain.utls.SwaggerDownloadUtils;
 import io.swagger.models.Swagger;
 import io.swagger.parser.SwaggerParser;
 import org.apache.logging.log4j.util.Strings;
@@ -13,7 +13,7 @@ public class ProjectFactory {
     private SwaggerParser swaggerParser = new SwaggerParser();
 
     @Autowired
-    private SwaggerUtils swaggerUtils;
+    private SwaggerDownloadUtils swaggerDownloadUtils;
 
     public Project setSwaggerIfURLProvided(Project project, String swaggerUrl) {
         Swagger swagger;
@@ -27,9 +27,9 @@ public class ProjectFactory {
             byte[] swaggerData;
             //数字类型,表示附件id，否则为附件uri
             if(swaggerUrl.matches("^[0-9]*$")){
-                swaggerData = swaggerUtils.downLoadSwagger(Long.parseLong(swaggerUrl));
+                swaggerData = swaggerDownloadUtils.downLoadSwagger(Long.parseLong(swaggerUrl));
             }else{
-                swaggerData = swaggerUtils.downLoadSwagger(swaggerUrl);
+                swaggerData = swaggerDownloadUtils.downLoadSwagger(swaggerUrl);
             }
 
             swagger = swaggerParser.readWithInfo(new String(swaggerData)).getSwagger();

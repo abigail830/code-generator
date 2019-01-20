@@ -1,6 +1,6 @@
 package com.cmb.domain.processor;
 
-import com.cmb.domain.engine.Project;
+import com.cmb.domain.project.Project;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.cmb.domain.engine;
+package com.cmb.domain.project;
 
 
 import lombok.*;
@@ -8,7 +8,9 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @Setter
-public class DependencyManagement {
+public class Dependency{
+
+    private String option;
 
     private String group;
 
@@ -18,6 +20,7 @@ public class DependencyManagement {
 
     private String type;
 
-    private String diy;
+    private String scope;
 
+    private String diy;
 }

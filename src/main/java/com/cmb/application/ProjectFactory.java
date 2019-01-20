@@ -18,11 +18,7 @@ public class ProjectFactory {
     public Project setSwaggerIfURLProvided(Project project, String swaggerUrl) {
         Swagger swagger;
 
-        //TODO: to be support no swagger provided case
-
-        if(Strings.isBlank(swaggerUrl)){
-            swagger = swaggerParser.read("swagger-example.yml");
-        }else{
+        if (!Strings.isBlank(swaggerUrl)) {
             //下载swagger文件
             byte[] swaggerData;
             //数字类型,表示附件id，否则为附件uri
@@ -33,8 +29,10 @@ public class ProjectFactory {
             }
 
             swagger = swaggerParser.readWithInfo(new String(swaggerData)).getSwagger();
+
+            project.setSwagger(swagger);
         }
-        project.setSwagger(swagger);
+
         return project;
     }
 

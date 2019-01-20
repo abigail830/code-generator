@@ -1,18 +1,20 @@
-package com.cmb.application;
+package com.cmb.integration;
 
+
+import com.cmb.Application;
+import com.cmb.application.GeneratorService;
 import com.cmb.domain.engine.Dependency;
 import com.cmb.domain.engine.DependencyManagement;
 import com.cmb.domain.engine.JenkinsConfig;
 import com.cmb.domain.engine.Project;
-import com.cmb.domain.processor.GradleBuildCommonProcessor;
-import com.cmb.domain.processor.MavenBuildCommonProcessor;
-import com.cmb.domain.processor.SourceProcessor;
-import com.cmb.domain.templateengine.VelocityTemplateEngine;
 import com.cmb.domain.utls.Constant;
 import com.cmb.domain.utls.FileUtils;
-import org.apache.velocity.app.VelocityEngine;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -23,27 +25,17 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = Application.class)
 public class GeneratorServiceTest {
 
     Project project;
+
+    @Autowired(required = true)
     GeneratorService generatorService;
-
-    VelocityTemplateEngine velocityTemplateEngine;
-
 
     @Before
     public void setUp() throws Exception {
-        project = mock(Project.class);
-        generatorService = new GeneratorService();
-        generatorService.mavenBuildCommonProcessor = new MavenBuildCommonProcessor();
-        generatorService.gradleBuildCommonProcessor = new GradleBuildCommonProcessor();
-
-        SourceProcessor sourceProcessor = new SourceProcessor();
-        VelocityEngine velocityEngine = new VelocityEngine();
-        velocityTemplateEngine = new VelocityTemplateEngine(velocityEngine);
-        sourceProcessor.templateEngine = velocityTemplateEngine;
-        generatorService.sourceProcessor = sourceProcessor;
-
         project = mock(Project.class);
         when(project.getBuildTool()).thenReturn(Constant.TYPE_MAVEN);
         when(project.getGroup()).thenReturn("group");
